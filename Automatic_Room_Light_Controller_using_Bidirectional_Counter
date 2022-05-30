@@ -26,9 +26,11 @@ lcd.clear();
 digitalWrite(relay, LOW);
 lcd.clear();
 lcd.print("Nobody In Room");
-lcd.setCursor(0,1); lcd.print("Light Is
-Off"); delay(200);
-}else{
+lcd.setCursor(0,1); 
+lcd.print("Light Is Off"); 
+delay(200);
+}
+else{
 digitalWrite(relay, HIGH);
 }
 
@@ -40,6 +42,7 @@ lcd.print("Person In Room:");
 lcd.setCursor(0,1); lcd.print(count);
 delay(1000);
 }
+
 void OUT()
 {
 count--;
