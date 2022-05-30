@@ -5,13 +5,17 @@
 #define tank_pump 4
 #define watering_pump 13
 #define moisture_sensor A0
+
+
 long duration;
 int distance;
-int moisture_value; int
-distance_percent;int
-moist_percent;
+int moisture_value; 
+int distance_percent;
+int moist_percent;
 SoftwareSerial SIM900(2, 3);
 LiquidCrystal lcd(12,11,8,7,6,5);
+
+
 void setup () {
 lcd.begin(20,4);
 SIM900.begin(9600);
@@ -25,16 +29,19 @@ pinMode(tank_pump,OUTPUT);
 digitalWrite(watering_pump,LOW);
 digitalWrite(tank_pump,LOW);
 lcd.setCursor(0,1);
-lcd.print(" WELCOME TO "
+lcd.print(" WELCOME TO ");
 delay(500);
-lcd.setCursor(0,2); lcd.print("
-IOT PROJECT");
-);delay(500);
+lcd.setCursor(0,2);
+lcd.print("IOT PROJECT");
+delay(500);
 lcd.setCursor(0,3);
 lcd.print("SMART IRRIGATION");
 delay(500);
 lcd.clear();
 }
+
+
+
 void loop(){
 // LEVEL SENSOR
 digitalWrite(trigger,LOW); delayMicroseconds(2);
@@ -46,12 +53,16 @@ distance_percent=map(distance,0,1023,0,100);
 moisture_value= analogRead(moisture_sensor);
 moist_percent=map(moisture_value,0,1023,0,100);condition();
 }
+
+
 void sms(){
 SIM900.print("SENDING MESSAGE \r");
 SIM900.println("MESSAGE SENT TO \"+91xxxxxxxxxx\"");// recipient's mobile number
 SIM900.println("WATERING PUMP IS OFF"); // message to send
 SIM900.println();
 }
+
+
 void sms1(){
 SIM900.print("SENDING MESSAGE \r");
 SIM900.println("MESSAGE SENT TO = \"+91xxxxxxxxxx\"");// recipient's mobile number
@@ -65,6 +76,8 @@ SIM900.println("WATERING PUMP IS ON"); // message to send Serial.println("WATERI
 IS ON");
 SIM900.println();
 }
+
+
 void sms3(){
 SIM900.print("SENDING MESSAGE \r");
 SIM900.println("MESSAGE SENT TO = \"+91xxxxxxxxxx\"");// recipient's mobile number
@@ -72,35 +85,42 @@ SIM900.println("TANK PUMP IS ON"); // message to send
 Serial.println("TANK PUMP IS ON");
 SIM900.println();
 }
+
+
 void condition(){
-if (distance_percent>85
-&&moist_percent<50){LCD_3();
+if (distance_percent>85 &&moist_percent<50)
+{
+LCD_3();
 digitalWrite(tank_pump,LOW);
 digitalWrite(watering_pump,HIGH);
 sms1();
 sms2();
 delay(1000);
 }
+
 else if (distance_percent<85 &&moist_percent>50)
-{ LCD_2()
-;
+{ 
+LCD_2();
 digitalWrite(tank_pump,HIGH);
 digitalWrite(watering_pump,LOW);
 sms3();
 sms();
 delay(1000);
-}else if (distance_percent>85 &&moist_percent>50)
-{ LCD_4()
-;
+}
+
+else if (distance_percent>85 &&moist_percent>50)
+{ 
+LCD_4() ;
 digitalWrite(tank_pump,LOW);
 digitalWrite(watering_pump,LOW);
 sms1();
 sms();
 delay(1000);
 }
+
 else if (distance_percent<85 &&moist_percent<50)
-{ LCD_1()
-;
+{ 
+LCD_1();
 digitalWrite(tank_pump,HIGH);
 digitalWrite(watering_pump,HIGH);
 sms3();
@@ -108,9 +128,11 @@ sms2();
 delay(1000);
 }
 }
-void
-LCD_1(){ lcd.clear()
-; lcd.setCursor(0,0);
+
+
+void LCD_1(){ 
+lcd.clear(); 
+lcd.setCursor(0,0);
 lcd.print("TANK LEVEL= ");
 lcd.print(distance_percent);
 lcd.print("%"); lcd.setCursor(0,1);
@@ -123,9 +145,10 @@ lcd.print(" ON");lcd.setCursor(0,3);
 lcd.print("T-PUMP STATUS ");
 lcd.print(" ON");
 }
-void
-LCD_2(){ lcd.clear()
-; lcd.setCursor(0,0);
+
+void LCD_2(){ 
+lcd.clear(); 
+lcd.setCursor(0,0);
 lcd.print("TANK LEVEL= ");
 lcd.print(distance_percent);
 lcd.print("%"); lcd.setCursor(0,1);
@@ -139,9 +162,10 @@ lcd.setCursor(0,3);
 lcd.print("T-PUMP STATUS ");
 lcd.print(" ON");
 }
-void
-LCD_3(){ lcd.clear()
-; lcd.setCursor(0,0);
+
+void LCD_3(){ 
+lcd.clear(); 
+lcd.setCursor(0,0);
 lcd.print("TANK LEVEL= ");
 lcd.print(distance_percent);
 lcd.print("%"); lcd.setCursor(0,1);
@@ -154,9 +178,10 @@ lcd.setCursor(0,3);
 lcd.print("T-PUMP STATUS ");
 lcd.print(" OFF");
 }
-void
-LCD_4(){ lcd.clear()
-; lcd.setCursor(0,0);
+
+void LCD_4(){ 
+lcd.clear(); 
+lcd.setCursor(0,0);
 lcd.print("TANK LEVEL= ");
 lcd.print(distance_percent);
 lcd.print("%"); lcd.setCursor(0,1);
